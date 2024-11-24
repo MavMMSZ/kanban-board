@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 export const login = async (req: Request, res: Response) => {
   // TODO: If the user exists and the password is correct, return a JWT token
   const { username, password } = req.body;
-  const user = await User.findOne({ username }); 
+  const user = await User.findOne({ where: { username } }); 
   if (!user) {
     return res.status(404).send('User not found');
   }
@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
     return res.status(403).send('Invalid password');
   }
   const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY as string);
-  res.send(token);
+  return res.send(token);
 };
 
 const router = Router();
