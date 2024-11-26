@@ -24,13 +24,12 @@ class AuthService {
     } catch (err) {
       return false;
     }
-    return new Error('Failed to decode token');
   }
 
   getToken(): string {
     // TODO: return the token
-    return localStorage.getItem('id_token') || '';
-   
+    const loggedUser = localStorage.getItem('id_token') || '';
+    return loggedUser;
   }
 
   login(idToken: string) {
@@ -44,7 +43,7 @@ class AuthService {
     // TODO: remove the token from localStorage
     // TODO: redirect to the login page
     localStorage.removeItem('id_token');
-    window.location.assign('/');
+    window.location.assign('/login');
   }
 }
 
